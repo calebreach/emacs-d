@@ -17,7 +17,7 @@
 (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
 
 (eval-after-load 'ess-s-l '(progn (ess-toggle-underscore t)
-				  (ess-toggle-underscore nil)))
+          (ess-toggle-underscore nil)))
 (require 'ess)
 (require 'ess-inf)
 
@@ -84,17 +84,58 @@
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (require 'cycle-buffer)
 
-;; '(define-minor-mode site-keys-mode
-;;   "Site key map"
-;;   :keymap
-;;   '(([C-p] . cycle-buffer-permissive)))
-
-;; '(site-keys-mode t)
-;; '(add-to-list 'emulation-mode-map-alists '((site-keys . site-keys-map)))
-
-;; '(defvar site-keys-mode-map-alist '((site-keys-mode . site-keys-mode-map)))
-
-;; '(setq emulation-mode-map-alists '(site-keys-mode-map-alist))
-
 (define-key evil-normal-state-map (kbd "C-p") nil)
 (global-set-key (kbd "C-p") 'cycle-buffer-permissive)
+(global-set-key (kbd "C-S-p") 'cycle-buffer-backward-permissive)
+
+(define-key evil-motion-state-map (kbd "C-f") nil)
+(global-set-key (kbd "C-f") 'find-file)
+
+(define-key evil-motion-state-map (kbd "C-b") nil)
+(global-set-key (kbd "C-b") 'switch-to-buffer)
+
+(require 'paredit)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "S-<up>") 'backward-up-list)
+(global-set-key (kbd "C-S-<up>") 'up-list)
+(global-set-key (kbd "S-<down>") 'down-list)
+(global-set-key (kbd "C-S-<down>") 'backward-down-list)
+(global-set-key (kbd "C-S-<left>") 'backward-to-previous-sexp)
+(global-set-key (kbd "C-S-<right>") 'forward-to-next-sexp)
+(global-set-key (kbd "S-<left>") 'paredit-backward)
+(global-set-key (kbd "S-<right>") 'paredit-forward)
+(global-set-key (kbd "S-<delete>") 'kill-sexp)
+(global-set-key (kbd "S-<backspace>") 'backward-kill-sexp)
+(global-set-key (kbd "C-S-t") 'transpose-sexps)
+(global-set-key (kbd "M-9") 'insert-parentheses)
+(global-set-key (kbd "M-0") 'delete-window)
+(global-set-key (kbd "C-'") 'duplicate-line)
+(global-set-key (kbd "M-1") 'delete-other-windows)
+(global-set-key (kbd "M-2") 'split-window-vertically)
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+
+(global-set-key (kbd "M-<right>") 'windmove-right)
+(global-set-key (kbd "M-<left>") 'windmove-left)
+(global-set-key (kbd "M-<up>") 'windmove-up)
+(global-set-key (kbd "M-<down>") 'windmove-down)
+(global-set-key (kbd "M-S-<left>") 'winner-undo)
+(global-set-key (kbd "M-S-<right>") 'winner-redo)
+
+(define-key evil-normal-state-map (kbd "C-n") nil)
+(global-set-key (kbd "C-n") 'save-buffer)
+
+(setq cua-enable-cua-keys nil)
+(cua-mode t)
+
+(setq ac-fuzzy-cursor-color nil)
+
+(setq default-frame-alist
+  '((width . 170)
+    (height . 55)
+    (font . "Monaco-10")))
+
+(server-start)
+(autopair-global-mode t)
+(global-auto-complete-mode t)
+(setq ac-fuzzy-cursor-color nil)
+(add-hook 'before-save-hook 'whitespace-cleanup)
