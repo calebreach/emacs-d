@@ -1,3 +1,10 @@
+(defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
+(define-minor-mode my-keys-minor-mode
+  "A minor mode so that my key settings override annoying major modes."
+  t nil 'my-keys-minor-mode-map)
+(my-keys-minor-mode 1)
+
+
 (setq cua-enable-cua-keys nil)
 (cua-mode t)
 
@@ -6,7 +13,7 @@
 
 (require 'paredit)
 
-(set-kbd-keys global
+(set-kbd-keys my-keys-minor-mode-map
   ("C-p"           . cycle-buffer-permissive)
   ("C-S-p"         . cycle-buffer-backward-permissive)
   ("C-z"           . kill-current-buffer)
@@ -43,9 +50,9 @@
   ("C-S-b"         . switch-to-buffer-other-window)
 
   ("M-x"   . smex)
-  ("C-S-c" . compile)
+  ("C-S-c" . projectile-compile-project)
   ("C-`"   . next-error)
-  ("C-#"   . comment-or-uncomment-region)
+  ("C-#"   . comment-dwim-2)
   ("C-+"   . increment-word)
   ("C-c c" . org-capture)
   ("C-c a" . org-agenda)
@@ -67,7 +74,7 @@
   ("C-S-<right>"   . forward-to-next-sexp)
   ("S-<left>"      . paredit-backward)
   ("S-<right>"     . paredit-forward)
-  ("S-<delete>"    . kill-sexp)
+  ("<S-kp-delete>" . kill-sexp)
   ("S-<backspace>" . backward-kill-sexp)
   ("C-S-t"         . transpose-sexps)
   ("M-9"           . insert-parentheses)

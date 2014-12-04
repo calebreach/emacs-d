@@ -4,8 +4,9 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
-(setenv "PATH" (concat "/usr/local/bin:/usr/texbin:" (getenv "PATH")))
+(setenv "PATH" (concat "/usr/local/bin:/usr/texbin:/Users/caleb/Library/Python/2.7/bin:" (getenv "PATH")))
 (add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "/Users/caleb/Library/Python/2.7/bin")
 
 ;; Packages
 (require 'package)
@@ -65,6 +66,24 @@
 (load-library "auto-indent")
 (load-library "site-lisp")
 (load-library "site-latex")
+(load-library "site-sh")
+(load-library "site-auto-indent")
 
 (load-library "sakai-grader")
 (put 'narrow-to-region 'disabled nil)
+
+(setq inferior-julia-program-name "/Applications/Julia-0.3.1.app/Contents/Resources/julia/bin/julia")
+(setq inferior-julia-args "-p 4")
+
+(definit makefile
+  (set (make-local-variable 'whitespace-indent-tabs-mode) t))
+
+(definit text
+  (flyspell-mode t)
+  (visual-line-mode t))
+
+(defconst my-cc-style
+  '("cc-mode"
+    (c-offsets-alist . ((innamespace . [0])))))
+
+(c-add-style "my-cc-mode" my-cc-style)
